@@ -8,9 +8,27 @@ FFmpeg Build Docker image
 
 This project prepares a development Docker image for FFmpeg. It compiles FFmpeg from sources following instructions from the [Compilation Guide](https://trac.ffmpeg.org/wiki/CompilationGuide). All the generated libs are left in the final image to be reuse.
 
-You can test the latest build of this image by running `docker pull video-tools/ffmpeg-build`.
+You can test the latest build of this image by running `docker pull videotools/ffmpeg-build`.
 
 This image can be used as a base for an encoding farm.
+
+It is on purpose very large as it contains all the lib for ffmpeg, feel free to extend and generate yours with multistage:
+
+```
+
+FROM        base AS release
+MAINTAINER  Julien Rottenberg <julien@rottenberg.info>
+
+CMD         ["--help"]
+ENTRYPOINT  ["ffmpeg"]
+ENV         LD_LIBRARY_PATH=/usr/local/lib
+
+COPY --from=build /usr/local /usr/local/
+
+# Let's make sure the app built correctly
+# Convenient to verify on https://hub.docker.com/r/jrottenberg/ffmpeg/builds/ console output
+```
+
 
 Ubuntu builds
 --------------
@@ -18,11 +36,12 @@ Ubuntu builds
 You can use video-tools/ffmpeg-build to get the latest build based on ubuntu.
 
 
+<details><summary>How the 'recent images' was generated</summary>
 
-<details><summary>(How the 'recent images' was generated)</summary>
 ```
     $ curl --silent https://hub.docker.com/v2/repositories/video-tools/ffmpeg-build/tags/?page_size=500 | jq -cr ".results|sort_by(.name)|reverse[]|.sz=(.full_size/1048576|floor|tostring+\"mb\")|[.name,( (20-(.name|length))*\" \" ),.sz,( (8-(.sz|length))*\" \"),.last_updated[:10]]|@text|gsub(\"[,\\\"\\\]\\\[]\";null)" | grep 2018-08
 ```
+
 </details>
 
 Please use [Github issues](https://github.com/video-tools/ffmpeg-build/issues/new) to report any bug or missing feature.
@@ -33,7 +52,7 @@ See what's inside the beast
 ---------------------------
 
 ```
-docker run -it --entrypoint='bash' video-tools/ffmpeg-build
+docker run -it --entrypoint='bash' video-tools/ffmpeg-build:VERSION
 
 for i in ogg amr vorbis theora mp3lame opus vpx xvid fdk x264 x265;do echo $i; find /usr/local/ -name *$i*;done
 ```
