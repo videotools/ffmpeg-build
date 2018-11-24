@@ -9,4 +9,4 @@ jobs:
   steps:
   - script: |
       docker build -t ffmpeg:${VERSION} --build-arg MAKEFLAGS="-j$(($(grep -c ^processor /proc/cpuinfo) + 1))" docker-images/${VERSION}/
-      docker run --rm ffmpeg:${VERSION}-buildconf
+      docker run --rm ffmpeg:${VERSION} ffmpeg -buildconf
