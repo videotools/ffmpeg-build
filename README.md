@@ -3,7 +3,7 @@ FFmpeg Build Docker image
 
  [![Docker Stars](https://img.shields.io/docker/stars/video-tools/ffmpeg-build.svg?style=plastic)](https://registry.hub.docker.com/v2/repositories/video-tools/ffmpeg-build/stars/count/) [![Docker pulls](https://img.shields.io/docker/pulls/video-tools/ffmpeg-build.svg?style=plastic)](https://registry.hub.docker.com/v2/repositories/video-tools/ffmpeg-build/)
 [![Travis](https://img.shields.io/travis/video-tools/ffmpeg-build/master.svg?maxAge=300?style=plastic)](https://travis-ci.org/video-tools/ffmpeg-build)
-[![Build Status](https://dev.azure.com/video-tools/ffmpeg/_apis/build/status/jrottenberg.ffmpeg)](https://dev.azure.com/video-tools/ffmpeg/_build/latest?definitionId=1)
+[![Build Status](https://dev.azure.com/video-tools/ffmpeg-build/_apis/build/status/jrottenberg.ffmpeg)](https://dev.azure.com/video-tools/ffmpeg-build/_build/latest?definitionId=1)
 [![Docker Automated build](https://img.shields.io/docker/automated/video-tools/ffmpeg-build.svg?maxAge=2592000?style=plastic)](https://github.com/video-tools/ffmpeg-build/)
 
 This project prepares a development Docker image for FFmpeg. It compiles FFmpeg from sources following instructions from the [Compilation Guide](https://trac.ffmpeg.org/wiki/CompilationGuide). All the generated libs are left in the final image to be reuse.

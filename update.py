@@ -1,7 +1,8 @@
 #!/usr/bin/env python
+"""
+Sungle utility to fetch ffmpeg releases and generate dockerfile for each
+"""
 
-
-# Get latest release from ffmpeg.org
 import os
 import sys
 import re
@@ -14,6 +15,8 @@ FFMPEG_RELEASES = "https://ffmpeg.org/releases/"
 
 travis = []
 azure = []
+
+# Get latest release from ffmpeg.org
 response = urllib2.urlopen(FFMPEG_RELEASES)
 ffmpeg_releases = response.read()
 
@@ -100,18 +103,16 @@ for version in keep_version:
         dfile.write(docker_content)
 
 
-with open("templates/travis.template", "r") as tmpfile:
-    template = tmpfile.read()
+# generate CI helpers for the current versions
+with open("templates/travis.template", "r") as templatetravis:
+    template = templatetravis.read()
 travis = template.replace("%%VERSIONS%%", "\n".join(travis))
-
-
 with open(".travis.yml", "w") as travisfile:
     travisfile.write(travis)
 
-with open("templates/azure.template", "r") as tmpfile:
-    template = tmpfile.read()
+
+with open("templates/azure.template", "r") as templateazure:
+    template = templateazure.read()
 azure = template.replace("%%VERSIONS%%", "\n".join(azure))
-
-
 with open("azure-pipelines.yml", "w") as azurefile:
     azurefile.write(azure)
