@@ -1,0 +1,38 @@
+jobs:
+- job: Build
+  pool:
+    vmImage: 'Ubuntu 16.04'
+  strategy:
+    maxParallel: 10
+    matrix:
+      snapshot:
+        VERSION: snapshot
+
+      4_1:
+        VERSION: 4.1
+        
+      4_0:
+        VERSION: 4.0
+        
+      3_4:
+        VERSION: 3.4
+        
+      3_3:
+        VERSION: 3.3
+        
+      3_2:
+        VERSION: 3.2
+        
+      3_1:
+        VERSION: 3.1
+        
+      3_0:
+        VERSION: 3.0
+        
+      2_8:
+        VERSION: 2.8
+        
+  steps:
+  - script: |
+      docker build -t ffmpeg:${VERSION} --build-arg MAKEFLAGS="-j$(($(grep -c ^processor /proc/cpuinfo) + 1))" docker-images/${VERSION}/
+      docker run --rm ffmpeg:${VERSION}-buildconf
