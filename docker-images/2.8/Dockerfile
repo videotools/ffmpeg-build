@@ -9,12 +9,6 @@ FROM        ubuntu:18.04 AS base
 
 WORKDIR     /tmp/workdir
 
-RUN     apt-get -yqq update && \
-        apt-get install -yq --no-install-recommends ca-certificates expat libgomp1 && \
-        apt-get autoremove -y && \
-        apt-get clean -y
-
-FROM base as build
 
 ARG        PKG_CONFIG_PATH=/opt/ffmpeg/lib/pkgconfig
 ARG        LD_LIBRARY_PATH=/opt/ffmpeg/lib
@@ -41,7 +35,6 @@ ENV         FFMPEG_VERSION=2.8.15     \
             LIBVIDSTAB_VERSION=1.1.0  \
             KVAZAAR_VERSION=1.2.0     \
             AOM_VERSION=v1.0.0        \
-            VMAF_VERSION=1.3.9        \
             SRC=/usr/local
 
 ARG         OGG_SHA256SUM="e19ee34711d7af328cb26287f4137e70630e7261b17cbe3cd41011d73a654692  libogg-1.3.2.tar.gz"
@@ -57,14 +50,17 @@ ARG         FRIBIDI_SHA256SUM="3fc96fa9473bd31dcb5500bdf1aa78b337ba13eb8c301e7c2
 
 RUN      buildDeps="autoconf \
                     automake \
+                    ca-certificates \
                     cmake \
                     curl \
                     bzip2 \
+                    expat \
                     libexpat1-dev \
                     g++ \
                     gcc \
                     git \
                     gperf \
+                    libgomp1 \
                     libtool \
                     make \
                     nasm \
@@ -231,19 +227,6 @@ RUN  \
         make && \
         make install && \
         rm -rf ${DIR}
-## libvmaf https://github.com/Netflix/vmaf
-RUN \
-        DIR=/tmp/vmaf && \
-        mkdir -p ${DIR} && \
-        cd ${DIR} && \
-        curl -sL https://github.com/Netflix/vmaf/archive/v${VMAF_VERSION}.tar.gz | \
-        tar -zx --strip-components=1 && \
-        cd ptools && \
-        make && \
-        cd ../wrapper && \
-        make && \
-        make install && \
-        rm -rf ${DIR}
 ## libvstab https://github.com/georgmartius/vid.stab
 RUN  \
         DIR=/tmp/vid.stab && \
@@ -356,7 +339,6 @@ RUN \
         --enable-libfdk_aac \
          \
         \
-        --enable-libvmaf \
         --enable-postproc \
         --enable-small \
         --enable-version3 \
@@ -376,5 +358,4 @@ RUN \
 RUN \
         ldd ${PREFIX}/bin/ffmpeg | grep opt/ffmpeg | cut -d ' ' -f 3 | xargs -i cp {} /usr/local/lib/ && \
         cp ${PREFIX}/bin/* /usr/local/bin/ && \
-        cp -r ${PREFIX}/share/ffmpeg /usr/local/share/ && \
-        LD_LIBRARY_PATH=/usr/local/lib ffmpeg -buildconf
+        cp -r ${PREFIX}/share/ffmpeg /usr/local/share/
