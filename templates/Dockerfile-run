@@ -153,19 +153,6 @@ RUN  \
         make && \
         make install && \
         rm -rf ${DIR}
-## libvmaf https://github.com/Netflix/vmaf
-RUN \
-        DIR=/tmp/vmaf && \
-        mkdir -p ${DIR} && \
-        cd ${DIR} && \
-        curl -sL https://github.com/Netflix/vmaf/archive/v${VMAF_VERSION}.tar.gz | \
-        tar -zx --strip-components=1 && \
-        cd ptools && \
-        make && \
-        cd ../wrapper && \
-        make && \
-        make install && \
-        rm -rf ${DIR}
 ## libvstab https://github.com/georgmartius/vid.stab
 RUN  \
         DIR=/tmp/vid.stab && \
@@ -278,7 +265,6 @@ RUN \
         --enable-libfdk_aac \
         --enable-libkvazaar \
         --enable-libaom --extra-libs=-lpthread \
-        --enable-libvmaf \
         --enable-postproc \
         --enable-small \
         --enable-version3 \
