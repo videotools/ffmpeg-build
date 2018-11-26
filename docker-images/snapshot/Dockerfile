@@ -9,6 +9,7 @@ FROM        ubuntu:18.04 AS base
 
 WORKDIR     /tmp/workdir
 
+ARG        PKG_CONFIG_PATH=/opt/ffmpeg/lib/pkgconfig
 ARG        PREFIX=/opt/ffmpeg
 ARG        MAKEFLAGS="-j2"
 
