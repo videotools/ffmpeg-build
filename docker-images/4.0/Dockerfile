@@ -9,7 +9,6 @@ FROM        ubuntu:18.04 AS base
 
 WORKDIR     /tmp/workdir
 
-ARG        PKG_CONFIG_PATH=/opt/ffmpeg/lib/pkgconfig
 ARG        PREFIX=/opt/ffmpeg
 ARG        MAKEFLAGS="-j2"
 
@@ -81,6 +80,7 @@ RUN \
         make && \
         make install && \
         rm -rf ${DIR}
+
 ## x264 http://www.videolan.org/developers/x264.html
 RUN \
         DIR=/tmp/x264 && \
@@ -92,6 +92,7 @@ RUN \
         make && \
         make install && \
         rm -rf ${DIR}
+
 ### x265 http://x265.org/
 RUN \
         DIR=/tmp/x265 && \
@@ -105,6 +106,7 @@ RUN \
         ./multilib.sh && \
         make -C 8bit install && \
         rm -rf ${DIR}
+
 ### libogg https://www.xiph.org/ogg/
 RUN \
         DIR=/tmp/ogg && \
@@ -117,6 +119,7 @@ RUN \
         make && \
         make install && \
         rm -rf ${DIR}
+
 ### libopus https://www.opus-codec.org/
 RUN \
         DIR=/tmp/opus && \
@@ -130,6 +133,7 @@ RUN \
         make && \
         make install && \
         rm -rf ${DIR}
+
 ### libvorbis https://xiph.org/vorbis/
 RUN \
         DIR=/tmp/vorbis && \
@@ -142,6 +146,7 @@ RUN \
         make && \
         make install && \
         rm -rf ${DIR}
+
 ### libtheora http://www.theora.org/
 RUN \
         DIR=/tmp/theora && \
@@ -154,6 +159,7 @@ RUN \
         make && \
         make install && \
         rm -rf ${DIR}
+
 ### libvpx https://www.webmproject.org/code/
 RUN \
         DIR=/tmp/vpx && \
@@ -166,6 +172,7 @@ RUN \
         make && \
         make install && \
         rm -rf ${DIR}
+
 ### libmp3lame http://lame.sourceforge.net/
 RUN \
         DIR=/tmp/lame && \
@@ -177,6 +184,7 @@ RUN \
         make && \
         make install && \
         rm -rf ${DIR}
+
 ### xvid https://www.xvid.com/
 RUN \
         DIR=/tmp/xvid && \
@@ -190,6 +198,7 @@ RUN \
         make && \
         make install && \
         rm -rf ${DIR}
+
 ### fdk-aac https://github.com/mstorsjo/fdk-aac
 RUN \
         DIR=/tmp/fdk-aac && \
@@ -202,6 +211,7 @@ RUN \
         make && \
         make install && \
         rm -rf ${DIR}
+
 ## openjpeg https://github.com/uclouvain/openjpeg
 RUN \
         DIR=/tmp/openjpeg && \
@@ -213,6 +223,7 @@ RUN \
         make && \
         make install && \
         rm -rf ${DIR}
+
 ## freetype https://www.freetype.org/
 RUN  \
         DIR=/tmp/freetype && \
@@ -225,6 +236,7 @@ RUN  \
         make && \
         make install && \
         rm -rf ${DIR}
+
 ## libvstab https://github.com/georgmartius/vid.stab
 RUN  \
         DIR=/tmp/vid.stab && \
@@ -237,6 +249,7 @@ RUN  \
         make && \
         make install && \
         rm -rf ${DIR}
+
 ## fridibi https://www.fribidi.org/
 # + https://github.com/fribidi/fribidi/issues/8
 RUN  \
@@ -252,6 +265,7 @@ RUN  \
         make -j 1 && \
         make install && \
         rm -rf ${DIR}
+
 ## fontconfig https://www.freedesktop.org/wiki/Software/fontconfig/
 RUN  \
         DIR=/tmp/fontconfig && \
@@ -263,6 +277,7 @@ RUN  \
         make && \
         make install && \
         rm -rf ${DIR}
+
 ## libass https://github.com/libass/libass
 RUN  \
         DIR=/tmp/libass && \
@@ -276,6 +291,7 @@ RUN  \
         make && \
         make install && \
         rm -rf ${DIR}
+
 ## kvazaar https://github.com/ultravideo/kvazaar
 RUN \
         DIR=/tmp/kvazaar && \
@@ -288,6 +304,7 @@ RUN \
         make && \
         make install && \
         rm -rf ${DIR}
+
 ## av1 https://aomedia.googlesource.com/aom
 RUN \
 	DIR=/tmp/aom && \
