@@ -1,10 +1,10 @@
 FFmpeg Build Docker image
 ==========================
 
- [![Docker Stars](https://img.shields.io/docker/stars/video-tools/ffmpeg-build.svg?style=plastic)](https://registry.hub.docker.com/v2/repositories/video-tools/ffmpeg-build/stars/count/) [![Docker pulls](https://img.shields.io/docker/pulls/video-tools/ffmpeg-build.svg?style=plastic)](https://registry.hub.docker.com/v2/repositories/video-tools/ffmpeg-build/)
-[![Travis](https://img.shields.io/travis/video-tools/ffmpeg-build/master.svg?maxAge=300?style=plastic)](https://travis-ci.org/video-tools/ffmpeg-build)
-[![Build Status](https://dev.azure.com/video-tools/ffmpeg-build/_apis/build/status/jrottenberg.ffmpeg)](https://dev.azure.com/video-tools/ffmpeg-build/_build/latest?definitionId=1)
-[![Docker Automated build](https://img.shields.io/docker/automated/video-tools/ffmpeg-build.svg?maxAge=2592000?style=plastic)](https://github.com/video-tools/ffmpeg-build/)
+ [![Docker Stars](https://img.shields.io/docker/stars/videotools/ffmpeg-build.svg?style=plastic)](https://registry.hub.docker.com/v2/repositories/videotools/ffmpeg-build/stars/count/) [![Docker pulls](https://img.shields.io/docker/pulls/videotools/ffmpeg-build.svg?style=plastic)](https://registry.hub.docker.com/v2/repositories/videotools/ffmpeg-build/)
+[![Travis](https://img.shields.io/travis/videotools/ffmpeg-build/master.svg?maxAge=300?style=plastic)](https://travis-ci.org/videotools/ffmpeg-build)
+[![Build Status](https://dev.azure.com/videotools/ffmpeg-build/_apis/build/status/jrottenberg.ffmpeg)](https://dev.azure.com/videotools/ffmpeg-build/_build/latest?definitionId=1)
+[![Docker Automated build](https://img.shields.io/docker/automated/videotools/ffmpeg-build.svg?maxAge=2592000?style=plastic)](https://github.com/videotools/ffmpeg-build/)
 
 This project prepares a development Docker image for FFmpeg. It compiles FFmpeg from sources following instructions from the [Compilation Guide](https://trac.ffmpeg.org/wiki/CompilationGuide). All the generated libs are left in the final image to be reuse.
 
@@ -26,25 +26,25 @@ ENV         LD_LIBRARY_PATH=/usr/local/lib
 COPY --from=build /usr/local /usr/local/
 
 # Let's make sure the app built correctly
-# Convenient to verify on https://hub.docker.com/r/jrottenberg/ffmpeg/builds/ console output
+# Convenient to verify on https://hub.docker.com/r/videotools/ffmpeg-build/builds console output
 ```
 
 
 Ubuntu builds
 --------------
 
-You can use video-tools/ffmpeg-build to get the latest build based on ubuntu.
+You can use videotools/ffmpeg-build to get the latest build based on ubuntu.
 
 
 <details><summary>How the 'recent images' was generated</summary>
 
 ```
-    $ curl --silent https://hub.docker.com/v2/repositories/video-tools/ffmpeg-build/tags/?page_size=500 | jq -cr ".results|sort_by(.name)|reverse[]|.sz=(.full_size/1048576|floor|tostring+\"mb\")|[.name,( (20-(.name|length))*\" \" ),.sz,( (8-(.sz|length))*\" \"),.last_updated[:10]]|@text|gsub(\"[,\\\"\\\]\\\[]\";null)" | grep 2018-08
+    $ curl --silent https://hub.docker.com/v2/repositories/videotools/ffmpeg-build/tags/?page_size=500 | jq -cr ".results|sort_by(.name)|reverse[]|.sz=(.full_size/1048576|floor|tostring+\"mb\")|[.name,( (20-(.name|length))*\" \" ),.sz,( (8-(.sz|length))*\" \"),.last_updated[:10]]|@text|gsub(\"[,\\\"\\\]\\\[]\";null)" | grep 2018-08
 ```
 
 </details>
 
-Please use [Github issues](https://github.com/video-tools/ffmpeg-build/issues/new) to report any bug or missing feature.
+Please use [Github issues](https://github.com/videotools/ffmpeg-build/issues/new) to report any bug or missing feature.
 
 
 
@@ -52,7 +52,7 @@ See what's inside the beast
 ---------------------------
 
 ```
-docker run -it --entrypoint='bash' video-tools/ffmpeg-build:VERSION
+docker run -it --entrypoint='bash' videotools/ffmpeg-build:VERSION
 
 for i in ogg amr vorbis theora mp3lame opus vpx xvid fdk x264 x265;do echo $i; find /usr/local/ -name *$i*;done
 ```
