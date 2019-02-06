@@ -372,6 +372,7 @@ RUN \
 
 ## cleanup
 RUN \
-        ldd ${PREFIX}/bin/ffmpeg | grep opt/ffmpeg | cut -d ' ' -f 3 | xargs -i cp {} /usr/local/lib/ && \
-        cp ${PREFIX}/bin/* /usr/local/bin/ && \
-        cp -r ${PREFIX}/share/ffmpeg /usr/local/share/
+    for dir in ${PREFIX}/*; do \
+        mv ${dir}/* /usr/local/$(basename $dir) ;\
+    done && \
+    ldconfig
