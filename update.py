@@ -81,9 +81,7 @@ for version in keep_version:
         )
 
     # FFmpeg 3.2 and earlier don't compile correctly on Ubuntu 18.04 due to openssl issues
-    if VARIANT == "vaapi" and (
-        version[0] < "3" or (version[0] == "3" and version[2] < "3")
-    ):
+    if  version[0] < "3" or (version[0] == "3" and version[2] < "3"):
         docker_content = docker_content.replace("ubuntu:18.04", "ubuntu:16.04")
         docker_content = docker_content.replace("libva-drm2", "libva-drm1")
         docker_content = docker_content.replace("libva2", "libva1")
