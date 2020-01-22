@@ -1,3 +1,7 @@
+# __NOTE__ : Please use https://github.com/jrottenberg/ffmpeg for now 
+
+
+
 FFmpeg Build Docker image
 ==========================
 
